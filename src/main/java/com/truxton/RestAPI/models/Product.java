@@ -6,6 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Product {
@@ -13,12 +19,15 @@ public class Product {
 	@Id@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty(message="Can not be empty")
+	@NotBlank(message="Can not be blank")
+	@Size(min=4, max= 255)
 	private String nome;
 	
 	private Integer qtde;
 	
 	private Date datecreated;
-	
+
 	
 	public Product() {
 		
@@ -30,8 +39,13 @@ public class Product {
 		this.nome = nome;
 		this.qtde = qtde;
 	}
-
-
+// metodo utilizado antes da persistencia para atribuir a data automaticamente
+	@PrePersist
+  public void onPrePersist() {
+	  if(this.datecreated ==null) {
+		  this.datecreated = new Date();
+	  }
+  } 
 
 	public Long getId() {
 		return id;
