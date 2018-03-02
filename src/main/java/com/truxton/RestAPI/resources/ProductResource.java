@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.truxton.RestAPI.models.Product;
 import com.truxton.RestAPI.services.ProductService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+@Api(value="API REST - Produtos")
 @RestController
 @RequestMapping("/products")
 public class ProductResource {
@@ -35,8 +38,9 @@ public class ProductResource {
 		this.service = service;
 	}
 
-	@GetMapping
+	@GetMapping(produces="application/json")
 	@ResponseBody
+	@ApiOperation(value="List All Products")
 	public ResponseEntity<?> listAll() {
 		List<Product> produtos = this.service.findAll();
 		
@@ -45,6 +49,7 @@ public class ProductResource {
 
 	@GetMapping("/{id}")
 	@ResponseBody
+	@ApiOperation(value="List Product by ID")
 	public ResponseEntity<?> findOne(@PathVariable("id") Long id) {
 		Product product = this.service.findOne(id);
 		return new ResponseEntity<Product>(product,HttpStatus.OK);
@@ -53,6 +58,7 @@ public class ProductResource {
 	@PostMapping
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
+	@ApiOperation(value="Create a new Product")
 	public ResponseEntity<?> create(@Valid @RequestBody Product products, Errors errors) {
 		if (!errors.hasErrors()) {
 			Product productCreated = this.service.create(products);
@@ -66,6 +72,7 @@ public class ProductResource {
 
 	@PutMapping("/{id}")
 	@ResponseBody
+	@ApiOperation(value="Update a Product")
 	public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @RequestBody Product product,Errors errors) {
 		Product productExists = this.service.findOne(id);
 		if (productExists != null && !errors.hasErrors()) {
