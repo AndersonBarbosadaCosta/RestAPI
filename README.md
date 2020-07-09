@@ -10,7 +10,7 @@ Bibliotecas e tecnologias utilizadas:
 - Maven
 
 
-![API REST](https://i.imgur.com/BC8DZ4s.png"API REST")
+![APIREST](https://i.imgur.com/BC8DZ4s.png"APIREST")
 
 ### Instalação
 
