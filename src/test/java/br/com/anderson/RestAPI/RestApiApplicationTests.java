@@ -1,4 +1,4 @@
-package com.truxton.RestAPI;
+package br.com.anderson.RestAPI;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
